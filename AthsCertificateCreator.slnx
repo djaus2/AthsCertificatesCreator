@@ -6,5 +6,5 @@
     <File Path="results.csv" />
   </Folder>
   <Project Path="EditJson/FormEdit/FormEditCert.csproj" />
-  <Project Path="GenerateCertificates/GenerateCertificateAppLatest/GenerateCertificateAppLatest.csproj" />
+  <Project Path="GenerateCertificates/CreateAthleticsCertificatesApp/CreateAthleticsCertificatesApp.csproj" />
 </Solution>
