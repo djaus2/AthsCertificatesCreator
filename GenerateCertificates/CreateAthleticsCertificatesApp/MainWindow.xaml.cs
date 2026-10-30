@@ -141,7 +141,7 @@ public partial class MainWindow : Window
         try
         {
             var initialPath = string.IsNullOrWhiteSpace(_settingsPath) ? null : _settingsPath;
-            var editor = new SettingsEditorWindow(initialPath)
+            var editor = new SettingsEditorWindow(initialPath, _resultsPath)
             {
                 Owner = this
             };

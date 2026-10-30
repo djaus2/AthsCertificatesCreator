@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using System.Text;
 using AthleticsCertificateMaker.GenerateCertificateApp.Models;
 using Microsoft.VisualBasic.FileIO;
 
@@ -7,6 +8,48 @@ namespace AthleticsCertificateMaker.GenerateCertificateApp.Services;
 
 public static class ParticipantCsvLoader
 {
+    private static readonly string[] ResultColumns = { "No", "Name", "Email", "Distance", "Time" };
+
+    public static List<ResultRow> LoadRawRows(string path, string delimiterMode)
+    {
+        var delimiter = ResolveDelimiter(path, delimiterMode);
+        var rows = ReadRows(path, delimiter);
+
+        return rows.Select(row => new ResultRow
+        {
+            No = GetValue(row, "No"),
+            Name = GetValue(row, "Name"),
+            Email = GetValue(row, "Email"),
+            Distance = GetValue(row, "Distance"),
+            Time = GetValue(row, "Time")
+        }).ToList();
+    }
+
+    public static void SaveRows(string path, List<ResultRow> rows, string delimiter)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine(string.Join(delimiter, ResultColumns));
+
+        foreach (var row in rows)
+        {
+            var values = new[] { row.No, row.Name, row.Email, row.Distance, row.Time }
+                .Select(v => QuoteField(v ?? string.Empty, delimiter));
+            sb.AppendLine(string.Join(delimiter, values));
+        }
+
+        File.WriteAllText(path, sb.ToString());
+    }
+
+    private static string QuoteField(string value, string delimiter)
+    {
+        if (value.Contains(delimiter) || value.Contains('"') || value.Contains('\n'))
+        {
+            return $"\"{value.Replace("\"", "\"\"")}\"";
+        }
+
+        return value;
+    }
+
     public static List<ParticipantRecord> Load(string path, string delimiterMode)
     {
         var delimiter = ResolveDelimiter(path, delimiterMode);
@@ -75,7 +118,7 @@ public static class ParticipantCsvLoader
         return result;
     }
 
-    private static string ResolveDelimiter(string path, string mode)
+    public static string ResolveDelimiter(string path, string mode)
     {
         var normalized = (mode ?? "Auto").Trim().ToLowerInvariant();
         return normalized switch
