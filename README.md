@@ -1,6 +1,9 @@
-# AthsCertificateCreator
+# Athletics Certificate Creator
 
-Tools for editing athletics certificate configuration (JSON) and generating certificates.
+> This version of the certificate generators is the whole box and dice. Can edit the
+> settings JSON file, edit results and generate certificates. Combines the previous
+> Generator app with the Forms version of the JSON editors.
+
 Built upon [AthsCertificateEditors](https://github.com/djaus2/AthsCertificateEditors), which
 supports [AthleticsCertificateMaker](https://github.com/djaus2/AthleticsCertificateMaker).
 
@@ -14,6 +17,8 @@ supports [AthleticsCertificateMaker](https://github.com/djaus2/AthleticsCertific
     (**File → Settings → Edit in Form Editor...**). Provides UI grids to edit
     `CertificateText` and `CertificateFields`, plus common metadata (template file, CSV
     file, colors, flags). Saving there reloads the settings into the app.
+  - The editor also has a **Results** tab to edit the results file (tab- or
+    comma-delimited), including `$` heading lines.
   - Run: `dotnet run --project GenerateCertificates/CreateAthleticsCertificatesApp/CreateAthleticsCertificatesApp.csproj`
   - Note: in dev mode you may need to turn off **Smart App Control** in Windows Security.
 
