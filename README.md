@@ -1,2 +1,2 @@
-# AthsCertificatesGenerator
-Athletics Certificate Generator
+# AthsCertificatesCreator
+Athletics Certificate Creator
