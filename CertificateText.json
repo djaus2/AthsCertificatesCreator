@@ -1,0 +1,132 @@
+{
+  "CertificateTemplateFile": "CertificateTemplate.png",
+  "ParticipantCsvFile": "results.csv",
+  "ParticipantCsvDelimiter": "Auto",
+  "SendUsingAccount": "onehour@somewhere.com.au",
+  "DefaultTextColor": "Red",
+  "DefaultLabelColor": "LightGreen",
+  "DefaultValueColor": "Yellow",
+  "CertificateSmoothingMode": "HighQuality",
+  "CertificateTextRenderingHint": "AntiAliasGridFit",
+  "ShowLocation": false,
+  "ShowHost": true,
+  "CertificateText": [
+    {
+      "Name": "Title",
+      "Text": "1 HOUR TRACK RUN",
+      "Color": "Red",
+      "Font": "Times New Roman",
+      "Size": 85,
+      "Style": "Bold",
+      "Y": 70
+    },
+    {
+      "Name": "Location",
+      "Text": "Somewhere Athletics Centre",
+      "Color": "White",
+      "Font": "Arial Narrow",
+      "Size": 38,
+      "Style": "Regular",
+      "Y": 320
+    },
+    {
+      "Name": "Host",
+      "Text": "Somewhere Masters Athletics",
+      "Color": "White",
+      "Font": "Arial Narrow",
+      "Size": 38,
+      "Style": "Regular",
+      "Y": 360
+    },
+    {
+      "Name": "Date",
+      "Text": "5th October 2026",
+      "Color": "LightGreen",
+      "Font": "Arial Narrow",
+      "Size": 51,
+      "Style": "Regular",
+      "Y": 410
+    }
+  ],
+  "CertificateFields": {
+    "Standard": [
+      {
+        "Name": "Name",
+        "Label": "Name:",
+        "Suffix": null,
+        "LabelFont": "Arial",
+        "LabelSize": 70,
+        "LabelStyle": "Bold",
+        "LabelColor": "LightGreen",
+        "LabelY": 800,
+        "ValueFont": "Arial",
+        "ValueSize": 90,
+        "ValueStyle": "Regular",
+        "ValueColor": "Yellow",
+        "ValueY": 900
+      },
+      {
+        "Name": "Distance",
+        "Label": "Distance",
+        "Suffix": " metres",
+        "LabelFont": "Arial",
+        "LabelSize": 70,
+        "LabelStyle": "Bold",
+        "LabelColor": "LightGreen",
+        "LabelY": 1250,
+        "ValueFont": "Arial",
+        "ValueSize": 90,
+        "ValueStyle": "Regular",
+        "ValueColor": "Yellow",
+        "ValueY": 1350
+      }
+    ],
+    "Time": [
+      {
+        "Name": "Name",
+        "Label": "Name",
+        "Suffix": null,
+        "LabelFont": "Arial",
+        "LabelSize": 70,
+        "LabelStyle": "Bold",
+        "LabelColor": "LightGreen",
+        "LabelY": 800,
+        "ValueFont": "Arial",
+        "ValueSize": 90,
+        "ValueStyle": "Regular",
+        "ValueColor": "Yellow",
+        "ValueY": 900
+      },
+      {
+        "Name": "Distance",
+        "Label": "Distance",
+        "Suffix": " metres",
+        "LabelFont": "Arial",
+        "LabelSize": 70,
+        "LabelStyle": "Bold",
+        "LabelColor": "LightGreen",
+        "LabelY": 1050,
+        "ValueFont": "Arial",
+        "ValueSize": 90,
+        "ValueStyle": "Regular",
+        "ValueColor": "Yellow",
+        "ValueY": 1150
+      },
+      {
+        "Name": "Time",
+        "Label": "Time",
+        "Suffix": null,
+        "LabelFont": "Arial",
+        "LabelSize": 70,
+        "LabelStyle": "Bold",
+        "LabelColor": "LightGreen",
+        "LabelY": 1300,
+        "ValueFont": "Arial",
+        "ValueSize": 90,
+        "ValueStyle": "Regular",
+        "ValueColor": "Yellow",
+        "ValueY": 1400
+      }
+    ]
+  }
+}

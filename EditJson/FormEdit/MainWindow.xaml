@@ -1,0 +1,123 @@
+<Window x:Class="AthleticsCertificateMaker.EditorUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AthleticsCertificateMaker.EditorUI"
+        mc:Ignorable="d"
+        Title="Certificate JSON UI Editor" Height="800" Width="1100">
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,8">
+            <Button Name="BtnNew" Click="BtnNew_Click" Content="New" Width="80" Margin="0,0,8,0" />
+            <Button Name="BtnLoad" Click="BtnLoad_Click" Content="Load..." Width="80" Margin="0,0,8,0" />
+            <Button Name="BtnSave" Click="BtnSave_Click" Content="Save" Width="80" Margin="0,0,8,0" />
+            <Button Name="BtnSaveAs" Click="BtnSaveAs_Click" Content="Save As..." Width="100" Margin="0,0,8,0" />
+            <TextBlock Name="LblPath" VerticalAlignment="Center" Margin="8,0,0,0" />
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="General" FontWeight="Bold" Margin="0,0,0,6" />
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock Text="CertificateTemplateFile" />
+                        <TextBox Name="TxtTemplateFile" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock Text="ParticipantCsvFile" />
+                        <TextBox Name="TxtCsvFile" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock Text="ParticipantCsvDelimiter" />
+                        <TextBox Name="TxtDelimiter" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock Text="SendUsingAccount" />
+                        <TextBox Name="TxtSendUsing" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock Text="DefaultTextColor" />
+                        <TextBox Name="TxtDefaultTextColor" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock Text="DefaultLabelColor" />
+                        <TextBox Name="TxtDefaultLabelColor" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock Text="DefaultValueColor" />
+                        <TextBox Name="TxtDefaultValueColor" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,8">
+                        <CheckBox Name="ChkShowLocation" Content="ShowLocation" Margin="0,0,12,0" />
+                        <CheckBox Name="ChkShowHost" Content="ShowHost" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <TabControl Grid.Column="1">
+                <TabItem Header="CertificateText">
+                    <DataGrid Name="GridText" AutoGenerateColumns="False" CanUserAddRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Text" Binding="{Binding Text}" />
+                            <DataGridTextColumn Header="Color" Binding="{Binding Color}" />
+                            <DataGridTextColumn Header="Font" Binding="{Binding Font}" />
+                            <DataGridTextColumn Header="Size" Binding="{Binding Size}" />
+                            <DataGridTextColumn Header="Style" Binding="{Binding Style}" />
+                            <DataGridTextColumn Header="Y" Binding="{Binding Y}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Standard Fields">
+                    <DataGrid Name="GridStandard" AutoGenerateColumns="False" CanUserAddRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Label" Binding="{Binding Label}" />
+                            <DataGridTextColumn Header="Suffix" Binding="{Binding Suffix}" />
+                            <DataGridTextColumn Header="LabelFont" Binding="{Binding LabelFont}" />
+                            <DataGridTextColumn Header="LabelSize" Binding="{Binding LabelSize}" />
+                            <DataGridTextColumn Header="LabelY" Binding="{Binding LabelY}" />
+                            <DataGridTextColumn Header="ValueFont" Binding="{Binding ValueFont}" />
+                            <DataGridTextColumn Header="ValueSize" Binding="{Binding ValueSize}" />
+                            <DataGridTextColumn Header="ValueY" Binding="{Binding ValueY}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Time Fields">
+                    <DataGrid Name="GridTime" AutoGenerateColumns="False" CanUserAddRows="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Label" Binding="{Binding Label}" />
+                            <DataGridTextColumn Header="Suffix" Binding="{Binding Suffix}" />
+                            <DataGridTextColumn Header="LabelFont" Binding="{Binding LabelFont}" />
+                            <DataGridTextColumn Header="LabelSize" Binding="{Binding LabelSize}" />
+                            <DataGridTextColumn Header="LabelY" Binding="{Binding LabelY}" />
+                            <DataGridTextColumn Header="ValueFont" Binding="{Binding ValueFont}" />
+                            <DataGridTextColumn Header="ValueSize" Binding="{Binding ValueSize}" />
+                            <DataGridTextColumn Header="ValueY" Binding="{Binding ValueY}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>

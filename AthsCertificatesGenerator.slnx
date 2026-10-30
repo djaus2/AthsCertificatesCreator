@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="CertificateTemplate.png" />
+    <File Path="CertificateText.json" />
+    <File Path="README.md" />
+    <File Path="results.csv" />
+  </Folder>
+  <Project Path="EditJson/FormEdit/FormEditCert.csproj" />
+  <Project Path="GenerateCertificates/GenerateCertificateAppLatest/GenerateCertificateAppLatest.csproj" />
+</Solution>

@@ -1,0 +1,89 @@
+<Window x:Class="AthleticsCertificateMaker.GenerateCertificateApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Generate Certificate App" Height="560" Width="960"
+        Icon="pack://application:,,,/Assets/AppIcon.ico">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#E6F4FF" Offset="0"/>
+            <GradientStop Color="#E08FA8" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Get Settings from JSON(or Reload)" Click="SettingsMenuItem_Click" />
+				<MenuItem Header="Select _Results..." Click="OpenResultsMenuItem_Click" />
+                <MenuItem Header="Select Image _Template..." Click="SelectTemplateMenuItem_Click" />
+                <MenuItem Header="_Save Settings to JSON" Click="SaveSettingsToJsonMenuItem_Click" />
+                <MenuItem Header="_Clear App Settings" Click="ClearAppSettingsMenuItem_Click" />
+
+                <Separator />
+                <MenuItem Header="E_xit" Click="ExitMenuItem_Click" />
+            </MenuItem>
+            <MenuItem x:Name="EditMenu" Header="Edit" SubmenuOpened="EditMenu_SubmenuOpened">
+                <MenuItem Header="Select Certificate" Click="SelectGeneratedCertificate_Click" />
+                <MenuItem x:Name="SelectResultMenuItem" Header="Select Result" Click="SelectResult_Click" />
+            </MenuItem>
+            <MenuItem x:Name="CertificatesHeader" Header="_Certificates" IsEnabled="False">
+                <MenuItem Header="_Generate (Only)" Click="BuildCertificatesMenuItem_Click" />
+                <MenuItem Header="Generate and Se_nd (via Outlook 16)" Click="BuildAndSendCertificatesMenuItem_Click" />
+                <Separator />
+				<MenuItem Header="Generate and _Save to (Outlook 16)/Drafts" Click="BuildAndSaveCertificatesMenuItem_Click" />
+				<MenuItem Header="_Send Drafts" Click="SendDraftsMenuItem_Click" />
+                <MenuItem Header="_Clear Drafts" Click="ClearDraftsMenuItem_Click" />
+				<Separator />
+                <MenuItem Header="_Browse Generated Certificates" Click="BrowseGeneratedCertificatesMenuItem_Click" />
+				<MenuItem Header="_Clear built Certificates etc." Click="CleanMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Header="_Log">
+                <MenuItem Header="_Copy" Click="CopyLogMenuItem_Click" />
+                <MenuItem Header="C_lear" Click="ClearLogMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" Click="AboutMenuItem_Click" />
+            </MenuItem>
+        </Menu>
+
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Settings JSON:" Margin="0,0,8,8" />
+            <TextBox Name="SettingsPathTextBox" Grid.Row="0" Grid.Column="1" IsReadOnly="True" Margin="0,0,0,8" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Results CSV/TSV:" Margin="0,0,8,8" />
+            <TextBox Name="ResultsPathTextBox" Grid.Row="1" Grid.Column="1" IsReadOnly="True" Margin="0,0,0,8" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Background Iamge Template:" Margin="0,0,8,8" />
+            <TextBox Name="TemplatePathTextBox" Grid.Row="2" Grid.Column="1" IsReadOnly="True" Margin="0,0,0,8" />
+
+            <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,8,0,8">
+                <TextBlock Name="SummaryTextBlock" Margin="12,7,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="Log">
+                <TextBox Name="LogTextBox"
+                         AcceptsReturn="True"
+                         IsReadOnly="True"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto"
+                         FontFamily="Consolas"
+                         TextWrapping="NoWrap" />
+            </GroupBox>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0"
+                       Text="Output: certificates in Output\\PNG and results in Results\\OfficialResults.csv (email sending not implemented yet)." />
+        </Grid>
+    </DockPanel>
+</Window>

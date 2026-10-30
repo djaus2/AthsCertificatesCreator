@@ -1,0 +1,48 @@
+<Window x:Class="AthleticsCertificateMaker.GenerateCertificateApp.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About Generate Certificate App"
+        Height="300"
+        Width="440"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Icon="Assets/AppIcon.ico">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#E6F4FF" Offset="0"/>
+            <GradientStop Color="#E08FA8" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+            <Border Width="48" Height="48" Margin="0,0,12,0" CornerRadius="8" Background="#FFF2F2F2">
+                <Image Source="Assets/AppIcon.ico" Stretch="Uniform" Margin="4"/>
+            </Border>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Generate Certificate App" FontSize="18" FontWeight="SemiBold"/>
+                <TextBlock x:Name="VersionText" Text="Version" Opacity="0.75"/>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" TextWrapping="Wrap">
+This app helps generate certificates from participant data and a template.
+
+Typical flow:
+1. Load participant data
+2. Load certificate template/config
+3. Generate certificate outputs
+        </TextBlock>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Width="90" IsDefault="True" Click="Close_Click">OK</Button>
+        </StackPanel>
+    </Grid>
+</Window>
