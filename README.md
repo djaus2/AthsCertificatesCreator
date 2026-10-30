@@ -1,4 +1,4 @@
-# AthsCertificatesGenerator
+# AthsCertificateCreator
 
 Tools for editing athletics certificate configuration (JSON) and generating certificates.
 Built upon [AthsCertificateEditors](https://github.com/djaus2/AthsCertificateEditors), which
@@ -23,12 +23,12 @@ supports [AthleticsCertificateMaker](https://github.com/djaus2/AthleticsCertific
 
 - .NET 10 SDK
 - Windows (WPF)
-- Visual Studio 2026 or a compatible IDE (solution: `AthsCertificatesGenerator.slnx`)
+- Visual Studio 2026 or a compatible IDE (solution: `AthsCertificateCreator.slnx`)
 
 ## Getting started
 
 1. Clone: `git clone https://github.com/djaus2/AthsCertificatesCreator.git`
-2. Open `AthsCertificatesGenerator.slnx` in Visual Studio, or `dotnet build`
+2. Open `AthsCertificateCreator.slnx` in Visual Studio, or `dotnet build`
 3. Use **FormEditCert** to create/edit the certificate JSON (e.g. `CertificateText.json`)
 4. Run **GenerateCertificateAppLatest**, load the JSON, adjust settings, and generate
    certificates into `Output/`.
