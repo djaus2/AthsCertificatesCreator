@@ -16,6 +16,9 @@
 				<MenuItem Header="Select _Results..." Click="OpenResultsMenuItem_Click" />
                 <MenuItem Header="Select Image _Template..." Click="SelectTemplateMenuItem_Click" />
                 <MenuItem Header="_Save Settings to JSON" Click="SaveSettingsToJsonMenuItem_Click" />
+                <MenuItem Header="_Settings">
+                    <MenuItem Header="Edit in _Form Editor..." Click="EditSettingsMenuItem_Click" />
+                </MenuItem>
                 <MenuItem Header="_Clear App Settings" Click="ClearAppSettingsMenuItem_Click" />
 
                 <Separator />

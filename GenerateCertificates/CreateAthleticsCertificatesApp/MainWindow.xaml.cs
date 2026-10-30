@@ -136,6 +136,32 @@ public partial class MainWindow : Window
         }
     }
 
+    private void EditSettingsMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var initialPath = string.IsNullOrWhiteSpace(_settingsPath) ? null : _settingsPath;
+            var editor = new SettingsEditorWindow(initialPath)
+            {
+                Owner = this
+            };
+
+            editor.ShowDialog();
+
+            if (!string.IsNullOrWhiteSpace(editor.SavedPath) && File.Exists(editor.SavedPath))
+            {
+                LoadSettings(editor.SavedPath);
+                PersistAppSettings();
+                Log($"Settings reloaded after edit: {editor.SavedPath}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Log($"ERROR: {ex.Message}");
+            MessageBox.Show(this, ex.Message, "Edit settings failed", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
     private void ClearAppSettingsMenuItem_Click(object sender, RoutedEventArgs e)
     {
         var confirmation = MessageBox.Show(
