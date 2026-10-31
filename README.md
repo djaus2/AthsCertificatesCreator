@@ -13,7 +13,7 @@ supports [AthleticsCertificateMaker](https://github.com/djaus2/AthleticsCertific
 - [djaus2/AthsCertificateEditors](https://github.com/djaus2/AthsCertificateEditors)
   - WPF app for genearting certificates plus separate apps for configuring
 - This
-  - Genration and config in one app. Also added Edit->Results
+  - Generation and config in one app. Also added Edit->Results
 
 ## Included apps
 
