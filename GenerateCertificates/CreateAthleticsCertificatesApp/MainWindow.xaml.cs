@@ -141,7 +141,7 @@ public partial class MainWindow : Window
         try
         {
             var initialPath = string.IsNullOrWhiteSpace(_settingsPath) ? null : _settingsPath;
-            var editor = new SettingsEditorWindow(initialPath, _resultsPath)
+            var editor = new SettingsEditorWindow(initialPath)
             {
                 Owner = this
             };
@@ -159,6 +159,24 @@ public partial class MainWindow : Window
         {
             Log($"ERROR: {ex.Message}");
             MessageBox.Show(this, ex.Message, "Edit settings failed", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void EditResultsMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var editor = new ResultsEditorWindow(_resultsPath, _config?.ParticipantCsvDelimiter)
+            {
+                Owner = this
+            };
+
+            editor.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            Log($"ERROR: {ex.Message}");
+            MessageBox.Show(this, ex.Message, "Edit results failed", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

@@ -17,7 +17,7 @@ supports [AthleticsCertificateMaker](https://github.com/djaus2/AthleticsCertific
     (**File → Settings → Edit in Form Editor...**). Provides UI grids to edit
     `CertificateText` and `CertificateFields`, plus common metadata (template file, CSV
     file, colors, flags). Saving there reloads the settings into the app.
-  - The editor also has a **Results** tab to edit the results file (tab- or
+  - **Edit → Results...** opens a separate editor for the results file (tab- or
     comma-delimited), including `$` heading lines.
   - Run: `dotnet run --project GenerateCertificates/CreateAthleticsCertificatesApp/CreateAthleticsCertificatesApp.csproj`
   - Note: in dev mode you may need to turn off **Smart App Control** in Windows Security.

@@ -25,6 +25,8 @@
                 <MenuItem Header="E_xit" Click="ExitMenuItem_Click" />
             </MenuItem>
             <MenuItem x:Name="EditMenu" Header="Edit" SubmenuOpened="EditMenu_SubmenuOpened">
+                <MenuItem Header="Results..." Click="EditResultsMenuItem_Click" />
+                <Separator />
                 <MenuItem Header="Select Certificate" Click="SelectGeneratedCertificate_Click" />
                 <MenuItem x:Name="SelectResultMenuItem" Header="Select Result" Click="SelectResult_Click" />
             </MenuItem>

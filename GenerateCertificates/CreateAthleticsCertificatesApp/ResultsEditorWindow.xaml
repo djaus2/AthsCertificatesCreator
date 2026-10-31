@@ -1,0 +1,44 @@
+<Window x:Class="AthleticsCertificateMaker.GenerateCertificateApp.ResultsEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Edit Results" Height="600" Width="950">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#E6F4FF" Offset="0"/>
+            <GradientStop Color="#E08FA8" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <DockPanel Margin="8">
+        <Grid DockPanel.Dock="Top" Margin="0,0,0,6">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Click="BtnLoadResults_Click" Content="Load Results..." Width="110" Margin="0,0,8,0" />
+                <TextBlock Name="LblResultsPath" VerticalAlignment="Center" Margin="8,0,0,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Click="BtnClearResults_Click" Content="Clear" Width="80" Margin="0,0,8,0" />
+                <Button Click="BtnSaveResults_Click" Content="Save Results" Width="100" />
+            </StackPanel>
+        </Grid>
+        <DataGrid Name="GridResults" AutoGenerateColumns="False" CanUserAddRows="True"
+                  BeginningEdit="GridResults_BeginningEdit" CellEditEnding="GridResults_CellEditEnding">
+            <DataGrid.Resources>
+                <ContextMenu x:Key="ResultsRowMenu">
+                    <MenuItem Header="Clear line" Click="ResultsClearLine_Click" />
+                    <MenuItem Header="Delete line" Click="ResultsDeleteLine_Click" />
+                    <MenuItem Header="Insert line" Click="ResultsInsertLine_Click" />
+                </ContextMenu>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ContextMenu" Value="{StaticResource ResultsRowMenu}" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="No ($ = Heading)" Binding="{Binding No}" Width="160" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" />
+                <DataGridTextColumn Header="Distance" Binding="{Binding Distance}" Width="90" />
+                <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="90" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

@@ -5,8 +5,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using AthleticsCertificateMaker.GenerateCertificateApp.Models;
 using AthleticsCertificateMaker.GenerateCertificateApp.Services;
 
@@ -16,16 +14,12 @@ public partial class SettingsEditorWindow : Window
 {
     private string? _currentPath;
     private CertificateConfig _model = new();
-    private string? _resultsPath;
-    private string _resultsDelimiter = ",";
-    private readonly string? _explicitResultsPath;
 
     public string? SavedPath { get; private set; }
 
-    public SettingsEditorWindow(string? initialPath = null, string? resultsPath = null)
+    public SettingsEditorWindow(string? initialPath = null)
     {
         InitializeComponent();
-        _explicitResultsPath = resultsPath;
 
         if (!string.IsNullOrWhiteSpace(initialPath) && File.Exists(initialPath))
         {
@@ -73,10 +67,6 @@ public partial class SettingsEditorWindow : Window
         BindModelToUi();
         _currentPath = null;
         LblPath.Text = "(new)";
-
-        _resultsPath = null;
-        GridResults.ItemsSource = null;
-        LblResultsPath.Text = "(none)";
     }
 
     private void LoadFromPath(string path)
@@ -87,211 +77,12 @@ public partial class SettingsEditorWindow : Window
             BindModelToUi();
             _currentPath = path;
             LblPath.Text = _currentPath;
-            AutoLoadResults();
         }
         catch (Exception ex)
         {
             MessageBox.Show(this, ex.Message, "Load failed", MessageBoxButton.OK, MessageBoxImage.Error);
             NewModel();
         }
-    }
-
-    private void AutoLoadResults()
-    {
-        var path = _explicitResultsPath;
-        if (string.IsNullOrWhiteSpace(path) && !string.IsNullOrWhiteSpace(_model.ParticipantCsvFile) && _currentPath is not null)
-        {
-            path = Path.IsPathRooted(_model.ParticipantCsvFile)
-                ? _model.ParticipantCsvFile
-                : Path.Combine(Path.GetDirectoryName(_currentPath) ?? string.Empty, _model.ParticipantCsvFile);
-        }
-
-        if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
-        {
-            LoadResults(path);
-        }
-        else
-        {
-            _resultsPath = null;
-            GridResults.ItemsSource = null;
-            LblResultsPath.Text = "(no results file)";
-        }
-    }
-
-    private void LoadResults(string path)
-    {
-        try
-        {
-            var mode = _model.ParticipantCsvDelimiter ?? "Auto";
-            _resultsDelimiter = ParticipantCsvLoader.ResolveDelimiter(path, mode);
-            GridResults.ItemsSource = new ObservableCollection<ResultRow>(
-                ParticipantCsvLoader.LoadRawRows(path, mode));
-            _resultsPath = path;
-            LblResultsPath.Text = path;
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(this, ex.Message, "Load results failed", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    private void BtnLoadResults_Click(object sender, RoutedEventArgs e)
-    {
-        var dlg = new OpenFileDialog { Filter = "CSV/TSV Files (*.csv;*.tsv;*.txt)|*.csv;*.tsv;*.txt|All files (*.*)|*.*" };
-        if (dlg.ShowDialog(this) == true)
-        {
-            LoadResults(dlg.FileName);
-        }
-    }
-
-    private void GridResults_BeginningEdit(object? sender, DataGridBeginningEditEventArgs e)
-    {
-        if (e.Row.Item is not ResultRow row || row.No?.TrimStart().StartsWith("$") != true)
-        {
-            return;
-        }
-
-        if (e.Column is DataGridBoundColumn column
-            && column.Binding is Binding binding
-            && binding.Path.Path != nameof(ResultRow.No))
-        {
-            e.Cancel = true;
-        }
-    }
-
-    private void GridResults_CellEditEnding(object? sender, DataGridCellEditEndingEventArgs e)
-    {
-        if (e.EditAction != DataGridEditAction.Commit
-            || e.Row.Item is not ResultRow row
-            || e.Column is not DataGridBoundColumn column
-            || column.Binding is not Binding binding
-            || binding.Path.Path != nameof(ResultRow.No)
-            || e.EditingElement is not TextBox textBox)
-        {
-            return;
-        }
-
-        var newNo = textBox.Text.Trim();
-        var wasHeading = row.No?.TrimStart().StartsWith('$') == true;
-
-        if (wasHeading && !newNo.StartsWith('$'))
-        {
-            MessageBox.Show(this, "A heading line must start with '$'.",
-                "Invalid heading", MessageBoxButton.OK, MessageBoxImage.Warning);
-            e.Cancel = true;
-            return;
-        }
-
-        var hasOtherValues = !string.IsNullOrWhiteSpace(row.Name)
-            || !string.IsNullOrWhiteSpace(row.Email)
-            || !string.IsNullOrWhiteSpace(row.Distance)
-            || !string.IsNullOrWhiteSpace(row.Time);
-
-        if (newNo.StartsWith('$') && hasOtherValues)
-        {
-            var confirm = MessageBox.Show(this,
-                "A heading line cannot have values in other columns. Clear them?",
-                "Clear other columns", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-            if (confirm != MessageBoxResult.Yes)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            row.Name = row.Email = row.Distance = row.Time = string.Empty;
-            Dispatcher.BeginInvoke(new Action(() => GridResults.Items.Refresh()));
-        }
-    }
-
-    private void BtnClearResults_Click(object sender, RoutedEventArgs e)
-    {
-        if (GridResults.ItemsSource is null)
-        {
-            return;
-        }
-
-        var confirm = MessageBox.Show(this, "Clear all result rows?",
-            "Clear results", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-        if (confirm == MessageBoxResult.Yes)
-        {
-            GridResults.ItemsSource = new ObservableCollection<ResultRow>();
-        }
-    }
-
-    private void BtnSaveResults_Click(object sender, RoutedEventArgs e)
-    {
-        if (string.IsNullOrWhiteSpace(_resultsPath) || GridResults.ItemsSource is null)
-        {
-            MessageBox.Show(this, "No results file loaded.", "Save results",
-                MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
-        }
-
-        try
-        {
-            SaveResults();
-            MessageBox.Show(this, $"Results saved to {_resultsPath}", "Save results",
-                MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(this, ex.Message, "Save results failed", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    private static ResultRow? ContextResultRow(object sender)
-        => ((sender as MenuItem)?.Parent as ContextMenu)?.PlacementTarget is DataGridRow row
-            ? row.DataContext as ResultRow
-            : null;
-
-    private void ResultsClearLine_Click(object sender, RoutedEventArgs e)
-    {
-        if (ContextResultRow(sender) is not { } row)
-        {
-            return;
-        }
-
-        row.No = row.Name = row.Email = row.Distance = row.Time = string.Empty;
-        GridResults.Items.Refresh();
-    }
-
-    private void ResultsDeleteLine_Click(object sender, RoutedEventArgs e)
-    {
-        if (ContextResultRow(sender) is not { } row
-            || GridResults.ItemsSource is not ObservableCollection<ResultRow> items)
-        {
-            return;
-        }
-
-        items.Remove(row);
-    }
-
-    private void ResultsInsertLine_Click(object sender, RoutedEventArgs e)
-    {
-        if (ContextResultRow(sender) is not { } row
-            || GridResults.ItemsSource is not ObservableCollection<ResultRow> items)
-        {
-            return;
-        }
-
-        items.Insert(items.IndexOf(row), new ResultRow());
-    }
-
-    private void SaveResults()
-    {
-        if (string.IsNullOrWhiteSpace(_resultsPath) || GridResults.ItemsSource is null)
-        {
-            return;
-        }
-
-        var rows = new List<ResultRow>();
-        foreach (var it in GridResults.Items)
-        {
-            if (it is ResultRow rr) rows.Add(rr);
-        }
-
-        ParticipantCsvLoader.SaveRows(_resultsPath, rows, _resultsDelimiter);
     }
 
     private void BindModelToUi()
@@ -381,8 +172,6 @@ public partial class SettingsEditorWindow : Window
             _currentPath = path;
             SavedPath = path;
             LblPath.Text = path;
-
-            SaveResults();
 
             MessageBox.Show(this, "Saved", "Save", MessageBoxButton.OK, MessageBoxImage.Information);
         }
