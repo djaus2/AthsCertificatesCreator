@@ -1,7 +1,7 @@
 # Athletics Certificate Creator
 
 > This version of the certificate generators is the whole box and dice. Can edit the
-> settings JSON file, edit results and generate certificates. Combines the previous
+> settings JSON file, edit results and generate/send certificates. Combines the previous
 > Generator app with the Forms version of the JSON editors.
 
 Built upon [AthsCertificateEditors](https://github.com/djaus2/AthsCertificateEditors), which
