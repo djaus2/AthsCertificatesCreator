@@ -11,7 +11,7 @@ supports [AthleticsCertificateMaker](https://github.com/djaus2/AthleticsCertific
 - [djaus2/AthleticsCertificateMaker](https://github.com/djaus2/AthleticsCertificateMaker)
   - PowerShell scripts for generating certificates
 - [djaus2/AthsCertificateEditors](https://github.com/djaus2/AthsCertificateEditors)
-  - WPF app for genearting certificates plus separate apps for configuring
+  - WPF app for generating certificates plus separate apps for configuring
 - This
   - Generation and config in one app. Also added Edit->Results
 
