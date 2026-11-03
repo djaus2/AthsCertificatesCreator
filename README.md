@@ -14,6 +14,9 @@ supports [AthleticsCertificateMaker](https://github.com/djaus2/AthleticsCertific
   - WPF app for generating certificates plus separate apps for configuring
 - This
   - Generation and config in one app. Also added Edit->Results
+ 
+## Blog posts
+[Certificate postss/](https://davidjones.sportronics.com.au/tags/certs/)
 
 ## Included apps
 
